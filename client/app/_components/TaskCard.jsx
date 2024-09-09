@@ -38,7 +38,7 @@ function TaskCard({ task, deleteTask, updateTask }) {
       <div
         ref={setNodeRef}
         style={style}
-        className="relative flex h-[100px] min-h-[100px] cursor-grab items-center rounded-xl border-2 border-green-500 bg-mainBackgroundColor p-3 text-left opacity-30"
+        className="relative flex h-[100px] min-h-[100px] cursor-grab items-center rounded-xl border-2 border-green-500 p-3 text-left opacity-30"
       />
     );
   }
@@ -50,10 +50,10 @@ function TaskCard({ task, deleteTask, updateTask }) {
         style={style}
         {...attributes}
         {...listeners}
-        className="relative flex h-[100px] min-h-[100px] cursor-grab items-center rounded-xl bg-mainBackgroundColor p-2.5 text-left hover:ring-2 hover:ring-inset hover:ring-green-500"
+        className="relative flex h-[100px] min-h-[100px] cursor-grab items-center rounded-xl bg-white p-2.5 text-left hover:ring-2 hover:ring-inset hover:ring-green-500"
       >
         <textarea
-          className="h-[90%] w-full resize-none rounded border-none bg-transparent text-white focus:outline-none"
+          className="h-[90%] w-full resize-none rounded border-none bg-transparent focus:outline-none active:bg-green-100"
           value={task.content}
           autoFocus
           placeholder="Task content here"
@@ -76,7 +76,7 @@ function TaskCard({ task, deleteTask, updateTask }) {
       {...attributes}
       {...listeners}
       onClick={toggleEditMode}
-      className="task relative flex h-[100px] min-h-[100px] cursor-grab items-center rounded-xl bg-[#13131a] p-2.5 text-left hover:ring-2 hover:ring-inset hover:ring-green-500"
+      className="task relative flex h-[100px] min-h-[100px] cursor-grab items-center rounded-xl p-2.5 text-left hover:ring-2 hover:ring-inset hover:ring-green-500"
       onMouseEnter={() => {
         setMouseIsOver(true);
       }}

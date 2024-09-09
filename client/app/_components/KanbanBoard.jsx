@@ -264,7 +264,7 @@ function KanbanBoard({ state }) {
   );
 
   return (
-    <div className="mt-5 min-h-screen w-72 text-white">
+    <div className="mt-5 min-h-screen w-72">
       <DndContext
         sensors={sensors}
         onDragStart={onDragStart}

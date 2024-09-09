@@ -134,7 +134,7 @@ const FileUploadModal = ({
       </div>
 
       {filename && (
-        <p className="mt-2 text-md text-center text-white">
+        <p className="mt-2 text-md text-center text-green-700">
           Selected file: {filename}
         </p>
       )}
@@ -142,7 +142,7 @@ const FileUploadModal = ({
       {uploading && (
         <IconProgress
           size={15}
-          className="mr-3 mt-3 h-7 w-5 animate-spin text-white"
+          className="mr-3 mt-3 h-7 w-5 animate-spin text-green-700"
         />
       )}
 

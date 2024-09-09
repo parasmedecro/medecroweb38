@@ -532,11 +532,26 @@ function SingleRecordDetails() {
         },
       ];
 
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-      const prompt = `You are an expert cancer and any disease diagnosis analyst. Use your knowledge base to answer questions about giving personalized recommended treatments.
-        give a detailed treatment plan for me, make it more readable, clear and easy to understand make it paragraphs to make it more readable
-        `;
+      // const prompt = `You are an expert doctor and any disease diagnosis analyst. Use your knowledge base to answer questions about giving personalized recommended treatments.
+      //   give a detailed treatment plan for me, make it more readable, clear and easy to understand make it paragraphs to make it more readable
+      //   `;
+
+      const prompt = `You are an expert doctor and disease diagnosis analyst. You will analyze the content of the user's uploaded medical report to provide a personalized summary and treatment plan. The treatment plan should be easy to understand, presented clearly in paragraphs followed by specific prescriptions and recommendations in a bullet-point format.
+
+      If the uploaded document is indeed a medical report, here’s what you need to do:
+      1. Summarize the key findings of the report in clear, easy-to-read paragraphs.
+      2. Provide a detailed treatment plan based on the user's diagnosis.
+      3. Offer specific recommendations or prescriptions, including medications, dosage, lifestyle changes, or further tests. Present these recommendations in a point-by-point list for better readability.
+
+      If the uploaded document is unrelated to a medical report (e.g., a text document, an image, or an unrelated file), respond with the following:
+      - "It appears the document you have uploaded is not a medical report. Please ensure that the document contains valid medical information so that I can assist you accurately."
+
+      Provide your response in this format:
+      - Paragraph summary of findings.
+      - Bullet points for recommendations and prescriptions.
+      Ensure that your response is clear, well-structured, and informative.`;
 
       const result = await model.generateContent([prompt, ...imageParts]);
       const response = await result.response;
@@ -564,53 +579,78 @@ function SingleRecordDetails() {
   };
 
   const processTreatmentPlan = async () => {
-    setIsProcessing(true);
+    try {
+      setIsProcessing(true);
+  
+      const genAI = new GoogleGenerativeAI(geminiApiKey);
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  
+      // const prompt = `Your role is to be an AI assistant. I need you to return the following treatment plan structure as valid JSON only with no extra commentary:
+      // {
+      //   "columns": [
+      //     { "id": "todo", "title": "Todo" },
+      //     { "id": "doing", "title": "Work in progress" },
+      //     { "id": "done", "title": "Done" }
+      //   ],
+      //   "tasks": [
+      //     { "id": "1", "columnId": "todo", "content": "Example task 1" },
+      //     { "id": "2", "columnId": "todo", "content": "Example task 2" },
+      //     { "id": "3", "columnId": "doing", "content": "Example task 3" },
+      //     { "id": "4", "columnId": "doing", "content": "Example task 4" },
+      //     { "id": "5", "columnId": "done", "content": "Example task 5" }
+      //   ]
+      // }
+      // Only return the JSON structure. Do not include any other text or comments.`;
 
-    const genAI = new GoogleGenerativeAI(geminiApiKey);
+      const prompt = `Your role is to be an AI medical assistant. Based on the user's medical report, I need you to generate a JSON structure with a treatment plan that includes specific tasks. These tasks should be categorized by their status: "Todo", "Work in progress", and "Done". Ensure that the tasks are tailored for a healthcare treatment plan, such as taking medications, attending follow-up appointments, or completing specific physical therapy exercises.
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+      Here is the structure I need. Return the valid JSON only without any extra commentary:
+      {
+        "columns": [
+          { "id": "todo", "title": "Todo" },
+          { "id": "doing", "title": "Work in progress" },
+          { "id": "done", "title": "Done" }
+        ],
+        "tasks": [
+          { "id": "1", "columnId": "todo", "content": "Take prescribed medication: 500mg of amoxicillin twice daily" },
+          { "id": "2", "columnId": "todo", "content": "Attend follow-up appointment with general physician on [date]" },
+          { "id": "3", "columnId": "doing", "content": "Complete daily physiotherapy exercises for 30 minutes" },
+          { "id": "4", "columnId": "doing", "content": "Monitor and record blood sugar levels after each meal" },
+          { "id": "5", "columnId": "done", "content": "Finish initial diagnostic tests: blood work and X-rays" }
+        ]
+      }
+      Only return the JSON structure. Do not include any other text or comments.`;
 
-    const prompt = `Your role and goal is to be an that will be using this treatment plan ${analysisResult} to create Columns:
-                - Todo: Tasks that need to be started
-                - Doing: Tasks that are in progress
-                - Done: Tasks that are completed
-          
-                Each task should include a brief description. The tasks should be categorized appropriately based on the stage of the treatment process.
-          
-                Please provide the results in the following  format for easy front-end display no quotating or what so ever just pure the structure below:
-
-                {
-                  "columns": [
-                    { "id": "todo", "title": "Todo" },
-                    { "id": "doing", "title": "Work in progress" },
-                    { "id": "done", "title": "Done" }
-                  ],
-                  "tasks": [
-                    { "id": "1", "columnId": "todo", "content": "Example task 1" },
-                    { "id": "2", "columnId": "todo", "content": "Example task 2" },
-                    { "id": "3", "columnId": "doing", "content": "Example task 3" },
-                    { "id": "4", "columnId": "doing", "content": "Example task 4" },
-                    { "id": "5", "columnId": "done", "content": "Example task 5" }
-                  ]
-                }
-                            
-                `;
-
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
-    const parsedResponse = JSON.parse(text);
-
-    console.log(text);
-    console.log(parsedResponse);
-    const updatedRecord = await updateRecord({
-      documentID: state.id,
-      kanbanRecords: text,
-    });
-    console.log(updatedRecord);
-    navigate("/schedules", { state: parsedResponse });
-    setIsProcessing(false);
+  
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = await response.text();
+  
+      console.log("Raw AI response:", text);
+  
+      try {
+        const parsedResponse = JSON.parse(text);
+        console.log("Parsed JSON:", parsedResponse);
+  
+        // Assuming the response is now valid JSON, save and navigate
+        const updatedRecord = await updateRecord({
+          documentID: state.id,
+          kanbanRecords: JSON.stringify(parsedResponse),
+        });
+        console.log(updatedRecord);
+  
+        navigate("/schedules", { state: parsedResponse });
+      } catch (jsonError) {
+        console.error("JSON parsing failed:", jsonError, "Response:", text);
+      }
+  
+    } catch (error) {
+      console.error("Error processing treatment plan:", error);
+    } finally {
+      setIsProcessing(false);
+    }
   };
+  
 
   return (
     <div className="flex flex-wrap gap-[26px]">
@@ -650,7 +690,7 @@ function SingleRecordDetails() {
                     <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
                       Analysis Result
                     </h2>
-                    <div className="space-y-2">
+                    <div className="space-y-2 text-gray-700">
                       <ReactMarkdown>{analysisResult}</ReactMarkdown>
                     </div>
                   </div>

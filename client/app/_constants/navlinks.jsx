@@ -1,4 +1,4 @@
-import { Home, ShoppingCart, Package, Users, LineChart, Search, CalendarCheck, TypeOutline, GraduationCap, Salad, Ticket, Cloud } from 'lucide-react';
+import { Home, ShoppingCart, Package, Users, LineChart, Search, CalendarCheck, TypeOutline, GraduationCap, Salad, Ticket, Cloud, HeartPulse } from 'lucide-react';
 
 export const navlinks = [
   {
@@ -14,7 +14,7 @@ export const navlinks = [
   {
     href: '/doctors',
     label: 'Doctors',
-    icon: ShoppingCart,
+    icon: HeartPulse,
   },
   {
     href: '/my-booking',
@@ -36,16 +36,16 @@ export const navlinks = [
     label: 'Schedules',
     icon: CalendarCheck,
   },
-  {
-    href: '/fill-profile',
-    label: 'Update Profile',
-    icon: TypeOutline,
-  },
-  {
-    href: '/profile',
-    label: 'User Profile',
-    icon: Users,
-  },
+  // {
+  //   href: '/fill-profile',
+  //   label: 'Update Profile',
+  //   icon: TypeOutline,
+  // },
+  // {
+  //   href: '/profile',
+  //   label: 'User Profile',
+  //   icon: Users,
+  // },
   {
     href: '/education',
     label: 'Health Education',

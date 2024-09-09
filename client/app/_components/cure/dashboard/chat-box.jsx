@@ -17,6 +17,8 @@ import { toast } from "sonner";
 const ChatBox = ({ isPro, user, symptoms, medications, messages }) => {
     const messagesEndRef = useRef(null);
 
+    isPro = true;
+
     const [input, setInput] = useState("");
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -61,8 +63,8 @@ const ChatBox = ({ isPro, user, symptoms, medications, messages }) => {
 
         try {
             const model = ai.getGenerativeModel({
-                // model: "gemini-1.5-flash"
-                model: "gemini-1.5-pro-exp-0801"
+                model: "gemini-1.5-flash"
+                // model: "gemini-1.5-pro-exp-0801"
             });
 
             const promptText = generatePrompt({ symptoms, medications, user });
@@ -164,7 +166,7 @@ const ChatBox = ({ isPro, user, symptoms, medications, messages }) => {
                                 <TriangleAlertIcon className="w-4 h-4 mr-2" />
                                 {error}
                             </p>
-                            {!isPro && (
+                            {/* {!isPro && (
                                 <Button
                                     asChild
                                     size="sm"
@@ -174,7 +176,7 @@ const ChatBox = ({ isPro, user, symptoms, medications, messages }) => {
                                         Upgrade to Pro
                                     </Link>
                                 </Button>
-                            )}
+                            )} */}
                         </div>
                     )}
                     <div ref={messagesEndRef} className="w-full h-px" />

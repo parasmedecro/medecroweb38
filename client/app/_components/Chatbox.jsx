@@ -386,6 +386,7 @@ import { cn } from '@/lib/utils';
 import ReactMarkdown from 'react-markdown';
 import { useStateContext } from '../_context';
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { generatePrompt } from '../_utils';
 
 export default function Chatbox() {
   const { currentUser, fetchChatHistory, saveChatMessage } = useStateContext();

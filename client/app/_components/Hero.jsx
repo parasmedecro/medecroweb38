@@ -27,9 +27,9 @@ function Hero() {
             <span className='text-primary '> Doctors</span></h2>
 
         <p className="mt-4 text-gray-500">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut qui hic atque tenetur quis
-          eius quos ea neque sunt, accusantium soluta minus veniam tempora deserunt? Molestiae eius
-          quidem quam repellat.
+          Discover personalized healthcare services at your fingertips. Whether it's a routine check-up
+          or specialized care, easily book appointments with experienced doctors from a range of fields.
+          Take control of your health today with a seamless booking experience and expert medical advice tailored to you.
         </p>
 
         <Button className="mt-10">Explore Now</Button>
