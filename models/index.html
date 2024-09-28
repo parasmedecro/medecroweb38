@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Health Data Form</title>
+    <script>
+        async function submitForm(event) {
+            const formData = new FormData();
+            event.preventDefault(); // Prevent form from submitting the default way
+
+            // Create the hypertension data object
+            const data = {
+                'gender': 1,
+                'age': 56,
+                'cigsPerDay': 0, // Default to 0 if empty
+                // 'BMI': 26.97,
+                'heartRate': 90,
+                'smoking_history': 0,
+                'weight':85,
+                'height':156,
+                'alco':0,
+                'active':1
+            };
+            formData.append('data', JSON.stringify({ data }));
+
+            fetch("http://127.0.0.1:8000/predictRisk", {
+                method: "POST",
+                body: formData,
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    alert(data);
+                    console.log(data)
+                })
+                .catch((error) => {
+                    console.error("Error during fetch operation:", error);
+                    document.getElementById("result").innerText =
+                        "An error occurred while processing the request.";
+                });
+        }
+    </script>
+</head>
+
+<body>
+    <h2>Heart Health Data Form</h2>
+    <form onsubmit="submitForm(event)">
+        <!-- <label for="gender">Gender (Male = 1, Female = 0):</label>
+        <input type="number" id="gender" name="gender" required><br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br><br>
+
+        <label for="cigsPerDay">Cigarettes Per Day:</label>
+        <input type="number" id="cigsPerDay" name="cigsPerDay"><br><br>
+
+        <label for="BMI">BMI:</label>
+        <input type="number" id="BMI" name="BMI" step="0.01" required><br><br>
+
+        <label for="heartRate">Heart Rate:</label>
+        <input type="number" id="heartRate" name="heartRate" required><br><br> -->
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+</html>
