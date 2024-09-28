@@ -66,14 +66,14 @@ const StepThree = ({ nextStep }) => {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel htmlFor="name">
-                                        Which medicines are you taking?
+                                        Do you have any Active Medication?
                                     </FormLabel>
                                     <Input
                                         {...field}
                                         id="name"
                                         type="text"
                                         disabled={isPending}
-                                        placeholder="Paracetamol, Aspirin, etc."
+                                        placeholder="eg. Insulin, Metformin"
                                     />
                                     <FormMessage />
                                 </FormItem>
@@ -105,7 +105,7 @@ const StepThree = ({ nextStep }) => {
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel htmlFor="purpose">
-                                    What is the purpose of this medication?
+                                    Do you have any Side Effects or Allergy?
                                 </FormLabel>
                                 <Textarea
                                     {...field}

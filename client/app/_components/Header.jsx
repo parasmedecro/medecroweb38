@@ -115,7 +115,7 @@ function Header() {
         {
             id: 2,
             name: 'Explore',
-            path: '/explore'
+            path: '/'
         },
         {
             id: 3,
@@ -133,7 +133,7 @@ function Header() {
     return (
         <div className='flex items-center justify-between p-4 shadow-sm bg-white'>
             <div className='flex items-center gap-10'>
-                <Image src='/logo.svg' alt='logo' width={40} height={40} />
+                {/* <Image src='/logo.svg' alt='logo' width={40} height={40} /> */}
                 <ul className='md:flex gap-8 hidden'>
                     {Menu.map((item, index) => (
                         <Link href={item.path} key={index}>

@@ -18,7 +18,7 @@ const fetchImage = async (query) => {
         region: 'us',
       },
       headers: {
-        'x-rapidapi-key': '7e41560ba9msh56d7d79162458c3p192511jsn536e5f59de3c',
+        'x-rapidapi-key': '2a96181753msh98fa4c653be6a98p1a0754jsnca88fb0e549c',
 		'x-rapidapi-host': 'real-time-image-search.p.rapidapi.com'
       },
     });

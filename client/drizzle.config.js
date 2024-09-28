@@ -8,3 +8,5 @@ export default {
         connectionString: 'postgresql://healthcare_owner:18BjSPwrNAsE@ep-raspy-firefly-a5ho51jq.us-east-2.aws.neon.tech/healthcare?sslmode=require',
     },
 };
+
+
