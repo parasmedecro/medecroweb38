@@ -33,7 +33,7 @@ export const navlinks = [
   },
   {
     href: '/schedules',
-    label: 'Schedules',
+    label: 'Treatment Plans',
     icon: CalendarCheck,
   },
   // {

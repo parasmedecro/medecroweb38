@@ -43,6 +43,8 @@ async function WeatherPage({ params: { city, lat, long } }) {
     }),
   });
 
+  console.log("res: ", res);
+
   const GPTData = await res.json();
 
   const { textResult } = GPTData;

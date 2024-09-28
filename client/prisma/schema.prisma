@@ -97,7 +97,7 @@ model User {
 
 // step 2
 model Symptom {
-  id        String      @id @default(cuid()) @map("_id")
+  id        String      @id @default(cuid()) @map("_id") 
   userId    String
   name      SymptomName // here i want if if the user selects other then the predefined symptoms then he can enter his own symptom
   intensity Int // Intensity level from 1 to 10
